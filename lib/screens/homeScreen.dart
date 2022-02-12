@@ -1,5 +1,8 @@
+import 'package:dart_complete_guide/models/Cart.dart';
+import 'package:dart_complete_guide/models/Product.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'dartCompleteGuide.dart';
+import '../models/dartCompleteGuide.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -10,8 +13,44 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    basicClass();
-    advancedClass();
+    // basicClass();
+    // advancedClass();
+    // eCommerceApp
+    // Mixin & extension
+    mixinsAndExtensions();
+  }
+
+  testFractionException(){
+    try {
+      final email = EmailAddress('amail.com');
+      print(email);
+    } on FormatException catch (e){
+      print(e);
+    } on Exception catch(e){
+      print(e);
+    } finally {
+      print('Test email done!');
+    }
+
+    try {
+      final f = Fraction(3, 0);
+      print(f.value);
+    } on PrimaryPointerGestureRecognizer catch (e){
+      print(e);
+    } on Exception catch (e){
+      print(e);
+    } finally {
+      print('Test fraction done!');
+    }
+  }
+
+  mixinsAndExtensions(){
+    print(1.toRange(2));
+    // PositiveInt(-1);
+    // PositiveInt.signIn('a@mail.com', '');
+    // Exceptions
+    testFractionException();
+    print('done');
   }
 
   basicClass() {
@@ -119,6 +158,13 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   advancedClass() {
+    // Copy an object
+    const credential = Credential();
+    final cred1 = credential.copyWith(email: 'a@mail.com');
+    final cred2 = cred1.copyWith(password: 'admin123');
+    print('cred1: $cred1');
+    print('cred2: $cred2');
+
     // Challenge - Factory constructor (Mapping json to objects, objects to json)
     final personsJson = [
       {'name': 'Andrea', 'age': 19},
@@ -249,6 +295,52 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   ];
 
+  // productsList() {
+  //   final products = Product.getProducts();
+  //   final cart = Cart();
+  //   final carts = <Cart>[];
+  //   List<Widget> productsList = [];
+  //   for (var product in products) {
+  //     productsList.add(Container(
+  //       child: Padding(
+  //         padding: EdgeInsets.symmetric(vertical: 8),
+  //         child: GestureDetector(
+  //           onTap: () {
+  //             showDialog(
+  //                 context: context,
+  //                 builder: (context) {
+  //                   return AlertDialog(
+  //                     title: Text("Product detail"),
+  //                     content: Text(product.name),
+  //                     actions: [
+  //                       FlatButton(onPressed: (){
+  //                         // print("${product.name} added to cart!");
+  //                         cart.addToCart(ProductItem(product: product));
+  //                         print("Cart: ${cart.productItems.length}");
+  //                         Navigator.of(context).pop();
+  //                       }, child: Text("Add to cart"))
+  //                     ],
+  //                   );
+  //                 });
+  //           },
+  //           child: Row(
+  //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //             children: [
+  //               Text(product.id),
+  //               Text(product.name),
+  //               Text("\$${product.price}")
+  //             ],
+  //           ),
+  //         ),
+  //       ),
+  //     ));
+  //   }
+  //   return Column(
+  //     crossAxisAlignment: CrossAxisAlignment.start,
+  //     children: productsList,
+  //   );
+  // }
+
   everageRatingScore(dynamic restaurants) {
     List<Widget> restaurantList = [];
     for (var restaurant in restaurants) {
@@ -284,7 +376,10 @@ class _HomeScreenState extends State<HomeScreen> {
           padding: EdgeInsets.all(20.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: [everageRatingScore(restaurants)],
+            children: [
+              everageRatingScore(restaurants)
+              // productsList()
+            ],
           ),
         ),
       ),

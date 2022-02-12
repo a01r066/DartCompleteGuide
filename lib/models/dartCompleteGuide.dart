@@ -1,6 +1,92 @@
 import 'dart:math';
 import 'package:equatable/equatable.dart';
 
+// Challenge - Exceptions
+class EmailAddress {
+  final String email;
+  EmailAddress(this.email){
+    // assert(email.isNotEmpty);
+    // assert(email.contains('@'));
+    if(email.isEmpty){
+      throw FormatException('Email should not be empty!');
+    }
+
+    if(!email.contains('@')){
+      throw FormatException('$email doesn\'t not contain @');
+    }
+  }
+
+  @override
+  String toString() {
+    // TODO: implement toString
+    return email;
+  }
+}
+
+// Exceptions
+class Fraction {
+  final int numerator;
+  final int denominator;
+
+  Fraction(this.numerator, this.denominator){
+    if(denominator == 0){
+      throw IntegerDivisionByZeroException();
+    }
+  }
+
+  double get value => numerator/denominator;
+}
+
+// Assert
+class PositiveInt {
+  final int value;
+
+  PositiveInt(this.value) : assert(value >= 0, 'Value cannot nagative!');
+
+  static signIn(String email, String password){
+    assert(email.isNotEmpty, 'Email is empty!');
+    assert(password.isNotEmpty, 'Password is empty!');
+  }
+}
+
+// Mixins & Extensions
+extension NumberToRange on int {
+  List<int>? toRange(int max){
+    final range = <int>[];
+    var current = this;
+    if(max >= current){
+      for(current; current <= max; current++){
+        range.add(current);
+      }
+      return range;
+    } else {
+      return null;
+    }
+  }
+}
+
+// Copy an object
+class Credential {
+  final String email;
+  final String password;
+
+  const Credential({this.email = '', this.password = ''});
+
+  Credential copyWith({String? email,
+  String? password}) {
+    return Credential(
+        email: email ?? this.email,
+        password: password ?? this.password
+    );
+  }
+
+  @override
+  String toString() {
+    return 'Credential($email, $password)';
+  }
+}
+
+// Factory constructor (Mapping json to objects, objects to json)
 class Person {
   final String name;
   final int age;
@@ -25,6 +111,7 @@ class Person {
   }
 }
 
+// Compositional (has-a) & Inheritance (is-a)
 abstract class MyWidget {}
 class MyText extends MyWidget {
   final String text;
