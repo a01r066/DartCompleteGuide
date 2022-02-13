@@ -17,16 +17,88 @@ class _HomeScreenState extends State<HomeScreen> {
     // advancedClass();
     // eCommerceApp
     // Mixin & extension
-    mixinsAndExtensions();
+    // mixinsAndExtensions();
+    // asynchronousProgramming();
+    // downCounter();
+    // stream();
+    streamConstructor();
   }
 
-  testFractionException(){
+  Future<void> streamConstructor() async {
+    final stream = Stream.fromIterable([1, 3, 5, 7, 9]);
+    // Stream methods
+    // print("stream.first: ${await stream.first}");
+    // await stream.forEach((element) => print(element));
+    final doubles = stream.map((element) => element * 3).where((value) => value > 3);
+    await doubles.forEach((element) {print(element);});
+    // Stream.value(10);
+    // Stream.error(Exception('Something went wrong!'));
+    // Stream.empty();
+    // Stream.fromFuture(Future.delayed(Duration(seconds: 1), () => 42));
+    // Stream.periodic(Duration(seconds: 1), (index) => index);
+  }
+
+  Future<void> stream() async {
+    // stream generator
+    final streamGenerator = SumStream();
+    // challenge stream
+    final stream = streamGenerator.fizzBuzz(15);
+    await for(var item in stream){
+      print(item);
+    }
+
+    // final stream = streamGenerator.streamGenerator(4);
+    // print("Sum1: ${ await streamGenerator.sumStream(stream)}");
+
+    // final stream = Stream<int>.fromIterable([1, 3, 5, 7, 9]);
+    // // final sumStream1 = SumStream();
+    // // print("Sum1: ${await sumStream1.sumStream(stream)}");
+    // final sumStream2 = SumStream();
+    // print("Sum2: ${await sumStream2.sumStream2(stream)}");
+  }
+
+  Future<void> downCounter() async {
+    final countDown = CountDown();
+    await countDown.countDown(5);
+    print("Finished!");
+  }
+
+  Future<void> fetchOrder() async {
+    final coffeeShop = CoffeeShop();
+    print("Program started:");
+    try {
+      final order1 = await coffeeShop.fetchOrders();
+      print(order1);
+    } catch (e){
+      print(e);
+    } finally {
+      print("Done!");
+    }
+  }
+
+  asynchronousProgramming() async {
+    // await, async
+    fetchOrder();
+    // final coffeeShop = CoffeeShop();
+    // final order2 = await coffeeShop.fetchOrders2();
+    // print(order2);
+    // final order3 = await coffeeShop.fetchOrders3();
+    // Future with catchError().WhenComplete()
+    // final coffeeShop = CoffeeShop();
+    // coffeeShop
+    //     .fetchOrders()
+    //     .then((order) => print(order))
+    // .catchError((err) => print(err))
+    // .whenComplete(() => print("Done"));
+  }
+
+  testFractionException() {
     try {
       final email = EmailAddress('amail.com');
       print(email);
-    } on FormatException catch (e){
+    } on FormatException catch (e) {
       print(e);
-    } on Exception catch(e){
+    } on Exception catch (e) {
       print(e);
     } finally {
       print('Test email done!');
@@ -35,16 +107,16 @@ class _HomeScreenState extends State<HomeScreen> {
     try {
       final f = Fraction(3, 0);
       print(f.value);
-    } on PrimaryPointerGestureRecognizer catch (e){
+    } on PrimaryPointerGestureRecognizer catch (e) {
       print(e);
-    } on Exception catch (e){
+    } on Exception catch (e) {
       print(e);
     } finally {
       print('Test fraction done!');
     }
   }
 
-  mixinsAndExtensions(){
+  mixinsAndExtensions() {
     print(1.toRange(2));
     // PositiveInt(-1);
     // PositiveInt.signIn('a@mail.com', '');
